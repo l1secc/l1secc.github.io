@@ -124,22 +124,22 @@
     .avatar { width: 98px; height: 98px; display: grid; place-items: center; margin: auto; border: 4px solid rgba(255,255,255,.3); border-radius: 50%; background: rgba(255,255,255,.16); font-size: 2rem; font-weight: 900; }
     .about-copy p:last-child { color: #cbd5e1; font-size: 1.1rem; }
 
-    .admin-trigger { position: fixed; right: 20px; bottom: 20px; z-index: 30; box-shadow: var(--shadow); }
-    .admin-dialog { width: min(920px, calc(100% - 28px)); max-height: 88vh; padding: 0; border: 1px solid var(--border); border-radius: 24px; background: var(--surface); color: var(--text); box-shadow: 0 30px 90px rgba(0,0,0,.35); overflow: hidden; }
-    .admin-dialog::backdrop { background: rgba(2,6,23,.72); backdrop-filter: blur(5px); }
-    .admin-head { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 24px; border-bottom: 1px solid var(--border); }
-    .admin-head h2 { margin: 0; font-size: 1.4rem; }
-    .admin-body { display: grid; grid-template-columns: 210px 1fr; min-height: 520px; }
-    .admin-sidebar { padding: 18px; border-right: 1px solid var(--border); background: var(--surface-soft); }
-    .admin-sidebar button { width: 100%; margin-bottom: 8px; justify-content: flex-start; }
-    .admin-content { padding: 24px; overflow: auto; }
-    .admin-metrics { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
-    .metric { padding: 18px; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); }
-    .metric strong { display: block; font-size: 1.8rem; }
-    .admin-note { margin-top: 22px; padding: 16px; border-left: 4px solid #f59e0b; border-radius: 10px; background: color-mix(in srgb,#f59e0b 12%,var(--surface)); }
-    .login-panel { max-width: 440px; margin: 50px auto; }
-    .login-panel input { width: 100%; min-height: 46px; margin: 7px 0 15px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 11px; background: var(--bg); color: var(--text); }
-    @media (max-width: 700px) { .admin-body { grid-template-columns: 1fr; } .admin-sidebar { display: flex; gap: 8px; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--border); } .admin-sidebar button { width: auto; white-space: nowrap; } .admin-metrics { grid-template-columns: 1fr; } }
+    .admin-trigger { position: fixed; right: 20px; bottom: 20px; z-index: 30; box-shadow: var(--shadow); }
+    .admin-dialog { width: min(920px, calc(100% - 28px)); max-height: 88vh; padding: 0; border: 1px solid var(--border); border-radius: 24px; background: var(--surface); color: var(--text); box-shadow: 0 30px 90px rgba(0,0,0,.35); overflow: hidden; }
+    .admin-dialog::backdrop { background: rgba(2,6,23,.72); backdrop-filter: blur(5px); }
+    .admin-head { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 24px; border-bottom: 1px solid var(--border); }
+    .admin-head h2 { margin: 0; font-size: 1.4rem; }
+    .admin-body { display: grid; grid-template-columns: 210px 1fr; min-height: 520px; }
+    .admin-sidebar { padding: 18px; border-right: 1px solid var(--border); background: var(--surface-soft); }
+    .admin-sidebar button { width: 100%; margin-bottom: 8px; justify-content: flex-start; }
+    .admin-content { padding: 24px; overflow: auto; }
+    .admin-metrics { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    .metric { padding: 18px; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); }
+    .metric strong { display: block; font-size: 1.8rem; }
+    .admin-note { margin-top: 22px; padding: 16px; border-left: 4px solid #f59e0b; border-radius: 10px; background: color-mix(in srgb,#f59e0b 12%,var(--surface)); }
+    .login-panel { max-width: 440px; margin: 50px auto; }
+    .login-panel input { width: 100%; min-height: 46px; margin: 7px 0 15px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 11px; background: var(--bg); color: var(--text); }
+    @media (max-width: 700px) { .admin-body { grid-template-columns: 1fr; } .admin-sidebar { display: flex; gap: 8px; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--border); } .admin-sidebar button { width: auto; white-space: nowrap; } .admin-metrics { grid-template-columns: 1fr; } }
 
 
     .newsletter { padding: 72px 0; }
@@ -246,180 +246,160 @@
   <script>
     "use strict";
 
-    /*
-      Güvenlik notu: Bu tek dosyalı sürüm, statik bir tarayıcı uygulamasıdır.
-      Yönetici parolası PBKDF2 ile özetlenir ve açık metin olarak saklanmaz.
-      Gerçek yayında kimlik doğrulama, oturum, hız sınırlama ve veri işlemleri
-      mutlaka HTTPS arkasındaki güvenilir bir sunucu/API üzerinde yapılmalıdır.
-    */
+    /*
+      Güvenlik notu: Bu tek dosyalı sürüm, statik bir tarayıcı uygulamasıdır.
+      Yönetici parolası PBKDF2 ile özetlenir ve açık metin olarak saklanmaz.
+      Gerçek yayında kimlik doğrulama, oturum, hız sınırlama ve veri işlemleri
+      mutlaka HTTPS arkasındaki güvenilir bir sunucu/API üzerinde yapılmalıdır.
+    */
 
 
-    const DEFAULT_POSTS = Object.freeze([
-      { id: "p1", title: "Yazılım Öğrenirken Sistem Kurmak", excerpt: "Motivasyona bağlı kalmadan ilerlemek için hedefleri, tekrarları ve küçük projeleri nasıl bir araya getirebiliriz?", category: "Üretkenlik", date: "8 Eylül 2026", readTime: "6 dk" },
-      { id: "p2", title: "Temiz Kod İçin Beş Pratik Alışkanlık", excerpt: "Daha anlaşılır, bakımı kolay ve güvenilir kod yazmayı sağlayan günlük alışkanlıklar.", category: "Yazılım", date: "2 Eylül 2026", readTime: "5 dk" },
-      { id: "p3", title: "Bir Öğrencinin Dijital Not Sistemi", excerpt: "Ders notlarını, kaynakları ve görevleri sade bir düzende birleştiren kişisel bilgi sistemi.", category: "Öğrenme", date: "25 Ağustos 2026", readTime: "7 dk" },
-      { id: "p4", title: "İlk Web Projesinden Çıkardığım Dersler", excerpt: "Planlama, erişilebilirlik, performans ve güvenlik açısından ilk projelerde dikkat edilmesi gerekenler.", category: "Deneyim", date: "16 Ağustos 2026", readTime: "4 dk" },
-      { id: "p5", title: "Odaklı Çalışma İçin Küçük Bir Rehber", excerpt: "Dikkat dağıtıcıları azaltmak ve sürdürülebilir bir çalışma ritmi oluşturmak için uygulanabilir yöntemler.", category: "Üretkenlik", date: "10 Ağustos 2026", readTime: "5 dk" },
-      { id: "p6", title: "Yeni Başlayanlar İçin Git Mantığı", excerpt: "Commit, branch ve merge kavramlarını ezberlemeden, arkasındaki düşünce yapısıyla öğrenmek.", category: "Yazılım", date: "3 Ağustos 2026", readTime: "8 dk" }
+
+
+    const DEFAULT_POSTS = Object.freeze([
+      { id: "p1", title: "Yazılım Öğrenirken Sistem Kurmak", excerpt: "Motivasyona bağlı kalmadan ilerlemek için hedefleri, tekrarları ve küçük projeleri nasıl bir araya getirebiliriz?", category: "Üretkenlik", date: "8 Eylül 2026", readTime: "6 dk" },
+      { id: "p2", title: "Temiz Kod İçin Beş Pratik Alışkanlık", excerpt: "Daha anlaşılır, bakımı kolay ve güvenilir kod yazmayı sağlayan günlük alışkanlıklar.", category: "Yazılım", date: "2 Eylül 2026", readTime: "5 dk" },
+      { id: "p3", title: "Bir Öğrencinin Dijital Not Sistemi", excerpt: "Ders notlarını, kaynakları ve görevleri sade bir düzende birleştiren kişisel bilgi sistemi.", category: "Öğrenme", date: "25 Ağustos 2026", readTime: "7 dk" },
+      { id: "p4", title: "İlk Web Projesinden Çıkardığım Dersler", excerpt: "Planlama, erişilebilirlik, performans ve güvenlik açısından ilk projelerde dikkat edilmesi gerekenler.", category: "Deneyim", date: "16 Ağustos 2026", readTime: "4 dk" },
+      { id: "p5", title: "Odaklı Çalışma İçin Küçük Bir Rehber", excerpt: "Dikkat dağıtıcıları azaltmak ve sürdürülebilir bir çalışma ritmi oluşturmak için uygulanabilir yöntemler.", category: "Üretkenlik", date: "10 Ağustos 2026", readTime: "5 dk" },
+      { id: "p6", title: "Yeni Başlayanlar İçin Git Mantığı", excerpt: "Commit, branch ve merge kavramlarını ezberlemeden, arkasındaki düşünce yapısıyla öğrenmek.", category: "Yazılım", date: "3 Ağustos 2026", readTime: "8 dk" }
     ]);
 
-    const CATEGORIES = Object.freeze(["Tümü", "Yazılım", "Öğrenme", "Üretkenlik", "Deneyim"]);
-    const STORAGE = Object.freeze({ posts: "kd-posts-v2", theme: "kd-theme-v2", admin: "kd-admin-v2", attempts: "kd-attempts-v2" });
-    const state = { category: "Tümü", query: "", posts: [], adminView: "overview", sessionTimer: 0 };
-    const $ = (selector, root = document) => root.querySelector(selector);
-    function clean(value, max = 120) {
-      return String(value ?? "").normalize("NFKC").replace(/[<>]/g, "").replace(/[\u0000-\u001F\u007F]/g, "").trim().slice(0, max);
+    const CATEGORIES = Object.freeze(["Tümü", "Yazılım", "Öğrenme", "Üretkenlik", "Deneyim"]);
+    const STORAGE = Object.freeze({ posts: "kd-posts-v2", theme: "kd-theme-v2", admin: "kd-admin-v2", attempts: "kd-attempts-v2" });
+    const state = { category: "Tümü", query: "", posts: [], adminView: "overview", sessionTimer: 0 };
+    const $ = (selector, root = document) => root.querySelector(selector);
+    function clean(value, max = 120) {
+      return String(value ?? "").normalize("NFKC").replace(/[<>]/g, "").replace(/[\u0000-\u001F\u007F]/g, "").trim().slice(0, max);
     }
-    function element(tag, className = "", text) {
-      const node = document.createElement(tag);
-      if (className) node.className = className;
-      if (text !== undefined) node.textContent = text;
-      return node;
+    function element(tag, className = "", text) {
+      const node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text !== undefined) node.textContent = text;
+      return node;
     }
-    function safeJsonGet(key, fallback) {
-      try { const value = JSON.parse(localStorage.getItem(key)); return value ?? fallback; } catch { return fallback; }
-    }
-    function safeJsonSet(key, value) {
-      try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch { return false; }
-    }
-    function validPost(post) {
-      return post && typeof post === "object" && typeof post.id === "string" && typeof post.title === "string" && typeof post.excerpt === "string" && CATEGORIES.includes(post.category);
-    }
-    function loadPosts() {
-      const saved = safeJsonGet(STORAGE.posts, null);
-      state.posts = Array.isArray(saved) && saved.every(validPost) ? saved.slice(0, 100) : DEFAULT_POSTS.map((post) => ({ ...post }));
-    }
-    function savePosts() { return safeJsonSet(STORAGE.posts, state.posts.slice(0, 100)); }
+    function safeJsonGet(key, fallback) {
+      try { const value = JSON.parse(localStorage.getItem(key)); return value ?? fallback; } catch { return fallback; }
+    }
+    function safeJsonSet(key, value) {
+      try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch { return false; }
+    }
+    function validPost(post) {
+      return post && typeof post === "object" && typeof post.id === "string" && typeof post.title === "string" && typeof post.excerpt === "string" && CATEGORIES.includes(post.category);
+    }
+    function loadPosts() {
+      const saved = safeJsonGet(STORAGE.posts, null);
+      state.posts = Array.isArray(saved) && saved.every(validPost) ? saved.slice(0, 100) : DEFAULT_POSTS.map((post) => ({ ...post }));
+    }
+    function savePosts() { return safeJsonSet(STORAGE.posts, state.posts.slice(0, 100)); }
     function renderFilters() {
-      const root = $("#filters"); root.replaceChildren();
-      CATEGORIES.forEach((category) => {
-        const button = element("button", `filter${state.category === category ? " active" : ""}`, category);
-        button.type = "button"; button.dataset.category = category;
-        button.setAttribute("aria-pressed", String(state.category === category)); root.append(button);
+      const root = $("#filters"); root.replaceChildren();
+      CATEGORIES.forEach((category) => {
+        const button = element("button", `filter${state.category === category ? " active" : ""}`, category);
+        button.type = "button"; button.dataset.category = category;
+        button.setAttribute("aria-pressed", String(state.category === category)); root.append(button);
       });
     }
     function renderPosts() {
       const query = state.query.toLocaleLowerCase("tr-TR");
-      const filtered = state.posts.filter((post) => (state.category === "Tümü" || post.category === state.category) && `${post.title} ${post.excerpt} ${post.category}`.toLocaleLowerCase("tr-TR").includes(query));
-      const grid = $("#postGrid"); grid.replaceChildren();
+      const filtered = state.posts.filter((post) => (state.category === "Tümü" || post.category === state.category) && `${post.title} ${post.excerpt} ${post.category}`.toLocaleLowerCase("tr-TR").includes(query));
+      const grid = $("#postGrid"); grid.replaceChildren();
       filtered.forEach((post) => {
-        const article = element("article", "card");
-        const top = element("div", "card-top"); top.append(element("span", "category", post.category), element("span", "", post.readTime));
-        const foot = element("div", "card-foot");
-        const read = element("button", "read", "Oku →"); read.type = "button"; read.setAttribute("aria-label", `${post.title} yazısını oku`);
-        read.addEventListener("click", () => showToast(`“${post.title}” yazısı yakında yayınlanacak.`));
-        foot.append(element("span", "", post.date), read);
-        article.append(top, element("h3", "", post.title), element("p", "", post.excerpt), foot); grid.append(article);
+        const article = element("article", "card");
+        const top = element("div", "card-top"); top.append(element("span", "category", post.category), element("span", "", post.readTime));
+        const foot = element("div", "card-foot");
+        const read = element("button", "read", "Oku →"); read.type = "button"; read.setAttribute("aria-label", `${post.title} yazısını oku`);
+        read.addEventListener("click", () => showToast(`“${post.title}” yazısı yakında yayınlanacak.`));
+        foot.append(element("span", "", post.date), read);
+        article.append(top, element("h3", "", post.title), element("p", "", post.excerpt), foot); grid.append(article);
       });
       $("#emptyState").style.display = filtered.length ? "none" : "block";
     }
-    function showToast(message) {
-      let toast = $("#toast");
-      if (!toast) { toast = element("div", "", ""); toast.id = "toast"; Object.assign(toast.style, { position:"fixed", left:"50%", bottom:"24px", transform:"translateX(-50%)", zIndex:"100", padding:"12px 18px", borderRadius:"12px", background:"#0f172a", color:"white", boxShadow:"0 14px 40px rgba(0,0,0,.25)" }); toast.setAttribute("role", "status"); document.body.append(toast); }
-      toast.textContent = clean(message, 240); toast.hidden = false; clearTimeout(toast.timer); toast.timer = setTimeout(() => { toast.hidden = true; }, 3200);
-    }
+    function showToast(message) {
+      let toast = $("#toast");
+      if (!toast) { toast = element("div", "", ""); toast.id = "toast"; Object.assign(toast.style, { position:"fixed", left:"50%", bottom:"24px", transform:"translateX(-50%)", zIndex:"100", padding:"12px 18px", borderRadius:"12px", background:"#0f172a", color:"white", boxShadow:"0 14px 40px rgba(0,0,0,.25)" }); toast.setAttribute("role", "status"); document.body.append(toast); }
+      toast.textContent = clean(message, 240); toast.hidden = false; clearTimeout(toast.timer); toast.timer = setTimeout(() => { toast.hidden = true; }, 3200);
+    }
     function applyTheme(theme) {
-      const dark = theme === "dark"; document.documentElement.dataset.theme = dark ? "dark" : "light";
-      $("#themeButton").textContent = dark ? "☀" : "☾"; $("#themeButton").setAttribute("aria-label", dark ? "Açık temaya geç" : "Koyu temaya geç");
-      try { localStorage.setItem(STORAGE.theme, dark ? "dark" : "light"); } catch {}
+      const dark = theme === "dark"; document.documentElement.dataset.theme = dark ? "dark" : "light";
+      $("#themeButton").textContent = dark ? "☀" : "☾"; $("#themeButton").setAttribute("aria-label", dark ? "Açık temaya geç" : "Koyu temaya geç");
+      try { localStorage.setItem(STORAGE.theme, dark ? "dark" : "light"); } catch {}
     }
 
-    function bytesToBase64(bytes) { let binary = ""; bytes.forEach((byte) => { binary += String.fromCharCode(byte); }); return btoa(binary); }
-    function base64ToBytes(value) { return Uint8Array.from(atob(value), (char) => char.charCodeAt(0)); }
-    async function derivePassword(password, salt, iterations = 210000) {
-      const material = await crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveBits"]);
-      const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", salt, iterations, hash: "SHA-256" }, material, 256);
-      return bytesToBase64(new Uint8Array(bits));
-    }
-    function constantTimeEqual(a, b) { if (a.length !== b.length) return false; let diff = 0; for (let i = 0; i < a.length; i += 1) diff |= a.charCodeAt(i) ^ b.charCodeAt(i); return diff === 0; }
-    function adminRecord() { return safeJsonGet(STORAGE.admin, null); }
-    function isAuthenticated() { try { return sessionStorage.getItem("kd-admin-session") === "active"; } catch { return false; } }
-    function setAuthenticated(value) { try { value ? sessionStorage.setItem("kd-admin-session", "active") : sessionStorage.removeItem("kd-admin-session"); } catch {} }
-    function attempts() { return safeJsonGet(STORAGE.attempts, { count: 0, lockedUntil: 0 }); }
-    function registerFailure() {
-      const item = attempts(); item.count += 1;
-      if (item.count >= 5) { item.lockedUntil = Date.now() + 5 * 60 * 1000; item.count = 0; }
-      safeJsonSet(STORAGE.attempts, item); return item;
-    }
-    function clearFailures() { safeJsonSet(STORAGE.attempts, { count: 0, lockedUntil: 0 }); }
-    function resetSessionTimer() {
-      clearTimeout(state.sessionTimer);
-      if (isAuthenticated()) state.sessionTimer = setTimeout(() => { setAuthenticated(false); renderAdmin(); showToast("Yönetici oturumu zaman aşımına uğradı."); }, 15 * 60 * 1000);
-    }
-    function openAdmin() {
-      let dialog = $("#adminDialog");
-      if (!dialog) {
-        dialog = element("dialog", "admin-dialog"); dialog.id = "adminDialog";
-        dialog.addEventListener("click", (event) => { if (event.target === dialog) dialog.close(); });
-        document.body.append(dialog);
-      }
-      renderAdmin(); dialog.showModal();
-    }
-    function field(labelText, type, name, maxLength, placeholder = "") {
-      const wrap = element("label"); wrap.style.display = "block"; wrap.style.marginBottom = "14px";
-      wrap.append(element("strong", "", labelText)); const input = element("input"); input.type = type; input.name = name; input.maxLength = maxLength; input.placeholder = placeholder; input.required = true;
-      Object.assign(input.style, { width:"100%", minHeight:"46px", marginTop:"6px", padding:"10px 12px", border:"1px solid var(--border)", borderRadius:"11px", background:"var(--bg)", color:"var(--text)" }); wrap.append(input); return wrap;
-    }
-    function adminShell() {
-      const dialog = $("#adminDialog"); dialog.replaceChildren();
-      const head = element("div", "admin-head"); head.append(element("h2", "", "Kerem Demir Yönetim Paneli"));
-      const close = element("button", "button icon-button", "×"); close.type = "button"; close.setAttribute("aria-label", "Paneli kapat"); close.addEventListener("click", () => dialog.close()); head.append(close); dialog.append(head);
-      return dialog;
-    }
-    function renderAdmin() {
-      const dialog = adminShell(); const record = adminRecord();
-      if (!record) return renderSetup(dialog);
-      if (!isAuthenticated()) return renderLogin(dialog);
-      resetSessionTimer(); renderDashboard(dialog);
-    }
-    function renderSetup(dialog) {
-      const panel = element("div", "login-panel"); panel.append(element("h3", "", "İlk yönetici hesabını oluştur"), element("p", "", "En az 12 karakterli, benzersiz bir parola kullanın. Parola açık metin olarak kaydedilmez."));
-      const form = element("form"); form.append(field("Kullanıcı adı", "text", "username", 40, "kerem"), field("Güçlü parola", "password", "password", 128, "En az 12 karakter"), field("Parolayı doğrula", "password", "confirm", 128));
-      const status = element("p", "status"); status.setAttribute("role", "status"); const submit = element("button", "button primary", "Hesabı oluştur"); submit.type = "submit"; form.append(submit, status); panel.append(form); dialog.append(panel);
-      form.addEventListener("submit", async (event) => {
-        event.preventDefault(); const data = new FormData(form); const username = clean(data.get("username"), 40); const password = String(data.get("password") || "");
-        if (username.length < 3 || password.length < 12 || password !== data.get("confirm")) { status.textContent = "Kullanıcı adı en az 3, parola en az 12 karakter olmalı ve parolalar eşleşmelidir."; return; }
-        submit.disabled = true;
-        try { const salt = crypto.getRandomValues(new Uint8Array(16)); const hash = await derivePassword(password, salt); safeJsonSet(STORAGE.admin, { username, salt: bytesToBase64(salt), hash, iterations: 210000, createdAt: new Date().toISOString() }); setAuthenticated(true); renderAdmin(); } catch { status.textContent = "Güvenli parola özeti oluşturulamadı. Tarayıcınızın güvenli bağlamda çalıştığından emin olun."; submit.disabled = false; }
-      });
-    }
-    function renderLogin(dialog) {
-      const lock = attempts(); const panel = element("div", "login-panel"); panel.append(element("h3", "", "Yönetici girişi"), element("p", "", "İçerikleri yönetmek için hesabınızla oturum açın."));
-      const form = element("form"); form.append(field("Kullanıcı adı", "text", "username", 40), field("Parola", "password", "password", 128)); const status = element("p", "status"); status.setAttribute("role", "status"); const submit = element("button", "button primary", "Giriş yap"); submit.type = "submit"; form.append(submit, status); panel.append(form); dialog.append(panel);
-      if (lock.lockedUntil > Date.now()) { submit.disabled = true; status.textContent = "Çok fazla hatalı deneme. Beş dakika sonra tekrar deneyin."; }
-      form.addEventListener("submit", async (event) => {
-        event.preventDefault(); const current = attempts(); if (current.lockedUntil > Date.now()) return;
-        const data = new FormData(form); const record = adminRecord(); const username = clean(data.get("username"), 40); const password = String(data.get("password") || ""); submit.disabled = true;
-        try { const candidate = await derivePassword(password, base64ToBytes(record.salt), record.iterations); if (username === record.username && constantTimeEqual(candidate, record.hash)) { clearFailures(); setAuthenticated(true); renderAdmin(); } else { const result = registerFailure(); status.textContent = result.lockedUntil > Date.now() ? "Hesap geçici olarak kilitlendi." : "Kullanıcı adı veya parola hatalı."; submit.disabled = false; } } catch { status.textContent = "Giriş doğrulanamadı."; submit.disabled = false; }
-      });
-    }
-    function renderDashboard(dialog) {
-      const body = element("div", "admin-body"); const side = element("aside", "admin-sidebar"); const content = element("section", "admin-content");
-      [["overview","Genel bakış"],["new","Yeni yazı"],["manage","Yazıları yönet"]].forEach(([view,label]) => { const button = element("button", "button", label); button.type = "button"; button.addEventListener("click", () => { state.adminView = view; renderAdmin(); }); side.append(button); });
-      const logout = element("button", "button", "Güvenli çıkış"); logout.type = "button"; logout.addEventListener("click", () => { setAuthenticated(false); clearTimeout(state.sessionTimer); renderAdmin(); }); side.append(logout); body.append(side, content); dialog.append(body);
-      if (state.adminView === "new") renderPostForm(content); else if (state.adminView === "manage") renderManager(content); else renderOverview(content);
-    }
-    function renderOverview(root) {
-      root.append(element("h3", "", "Genel bakış")); const metrics = element("div", "admin-metrics");
-      [[state.posts.length,"Toplam yazı"],[new Set(state.posts.map((p) => p.category)).size,"Aktif kategori"],["15 dk","Oturum süresi"]].forEach(([value,label]) => { const item = element("div", "metric"); item.append(element("strong", "", String(value)), element("span", "", label)); metrics.append(item); });
-      root.append(metrics); const note = element("div", "admin-note", "Bu statik demo, tarayıcı içi yönetim sunar. Üretimde gerçek sunucu oturumu, HttpOnly/Secure/SameSite çerezleri, CSRF koruması, hız sınırlama, audit log ve veritabanı yetkilendirmesi kullanılmalıdır."); root.append(note);
-    }
-    function renderPostForm(root) {
-      root.append(element("h3", "", "Yeni yazı ekle")); const form = element("form"); form.append(field("Başlık", "text", "title", 120), field("Özet", "text", "excerpt", 360), field("Kategori", "text", "category", 30, "Yazılım, Öğrenme, Üretkenlik veya Deneyim"), field("Tarih", "text", "date", 40, "11 Eylül 2026"), field("Okuma süresi", "text", "readTime", 12, "5 dk")); const status = element("p", "status"); const submit = element("button", "button primary", "Güvenli biçimde kaydet"); submit.type = "submit"; form.append(submit, status); root.append(form);
-      form.addEventListener("submit", (event) => { event.preventDefault(); const data = new FormData(form); const category = clean(data.get("category"), 30); const post = { id: crypto.randomUUID ? crypto.randomUUID() : `p-${Date.now()}`, title: clean(data.get("title"), 120), excerpt: clean(data.get("excerpt"), 360), category, date: clean(data.get("date"), 40), readTime: clean(data.get("readTime"), 12) }; if (post.title.length < 5 || post.excerpt.length < 20 || !CATEGORIES.slice(1).includes(category)) { status.textContent = "Alanları kontrol edin ve geçerli bir kategori kullanın."; return; } state.posts.unshift(post); savePosts(); renderPosts(); state.adminView = "manage"; renderAdmin(); showToast("Yazı kaydedildi."); });
-    }
-    function renderManager(root) {
-      root.append(element("h3", "", "Yazıları yönet")); state.posts.forEach((post) => { const row = element("div", "metric"); row.style.marginBottom = "10px"; const title = element("strong", "", post.title); title.style.fontSize = "1rem"; const remove = element("button", "button", "Sil"); remove.type = "button"; remove.style.marginTop = "10px"; remove.addEventListener("click", () => { if (!confirm("Bu yazıyı silmek istediğinizden emin misiniz?")) return; state.posts = state.posts.filter((item) => item.id !== post.id); savePosts(); renderPosts(); renderAdmin(); }); row.append(title, element("span", "", `${post.category} · ${post.date}`), remove); root.append(row); });
-      const reset = element("button", "button", "Varsayılan yazıları geri yükle"); reset.type = "button"; reset.addEventListener("click", () => { if (!confirm("Yerel değişiklikler silinsin mi?")) return; state.posts = DEFAULT_POSTS.map((post) => ({ ...post })); savePosts(); renderPosts(); renderAdmin(); }); root.append(reset);
-    }
-    $("#filters").addEventListener("click", (event) => { const button = event.target.closest("button[data-category]"); if (!button) return; state.category = CATEGORIES.includes(button.dataset.category) ? button.dataset.category : "Tümü"; renderFilters(); renderPosts(); });
-    $("#searchInput").addEventListener("input", (event) => { const value = clean(event.target.value, 80); if (event.target.value !== value) event.target.value = value; state.query = value; renderPosts(); });
-    $("#menuButton").addEventListener("click", () => { const menu = $("#mobileMenu"); const open = menu.hidden; menu.hidden = !open; menu.classList.toggle("open", open); $("#menuButton").setAttribute("aria-expanded", String(open)); $("#menuButton").textContent = open ? "×" : "☰"; });
-    $("#mobileMenu").addEventListener("click", (event) => { if (!event.target.closest("a")) return; $("#mobileMenu").hidden = true; $("#mobileMenu").classList.remove("open"); $("#menuButton").setAttribute("aria-expanded", "false"); $("#menuButton").textContent = "☰"; });
+    function openAdmin() {
+      let dialog = $("#adminDialog");
+      if (!dialog) {
+        dialog = element("dialog", "admin-dialog"); dialog.id = "adminDialog";
+        dialog.addEventListener("click", (event) => { if (event.target === dialog) dialog.close(); });
+        document.body.append(dialog);
+      }
+      renderAdmin(); dialog.showModal();
+    }
+    function field(labelText, type, name, maxLength, placeholder = "") {
+      const wrap = element("label"); wrap.style.display = "block"; wrap.style.marginBottom = "14px";
+      wrap.append(element("strong", "", labelText)); const input = element("input"); input.type = type; input.name = name; input.maxLength = maxLength; input.placeholder = placeholder; input.required = true;
+      Object.assign(input.style, { width:"100%", minHeight:"46px", marginTop:"6px", padding:"10px 12px", border:"1px solid var(--border)", borderRadius:"11px", background:"var(--bg)", color:"var(--text)" }); wrap.append(input); return wrap;
+    }
+    function adminShell() {
+      const dialog = $("#adminDialog"); dialog.replaceChildren();
+      const head = element("div", "admin-head"); head.append(element("h2", "", "Kerem Demir Yönetim Paneli"));
+      const close = element("button", "button icon-button", "×"); close.type = "button"; close.setAttribute("aria-label", "Paneli kapat"); close.addEventListener("click", () => dialog.close()); head.append(close); dialog.append(head);
+      return dialog;
+    }
+    function renderAdmin() {
+      const dialog = adminShell(); const record = adminRecord();
+      if (!record) return renderSetup(dialog);
+      if (!isAuthenticated()) return renderLogin(dialog);
+      resetSessionTimer(); renderDashboard(dialog);
+    }
+    function renderSetup(dialog) {
+      const panel = element("div", "login-panel"); panel.append(element("h3", "", "İlk yönetici hesabını oluştur"), element("p", "", "En az 12 karakterli, benzersiz bir parola kullanın. Parola açık metin olarak kaydedilmez."));
+      const form = element("form"); form.append(field("Kullanıcı adı", "text", "username", 40, "kerem"), field("Güçlü parola", "password", "password", 128, "En az 12 karakter"), field("Parolayı doğrula", "password", "confirm", 128));
+      const status = element("p", "status"); status.setAttribute("role", "status"); const submit = element("button", "button primary", "Hesabı oluştur"); submit.type = "submit"; form.append(submit, status); panel.append(form); dialog.append(panel);
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault(); const data = new FormData(form); const username = clean(data.get("username"), 40); const password = String(data.get("password") || "");
+        if (username.length < 3 || password.length < 12 || password !== data.get("confirm")) { status.textContent = "Kullanıcı adı en az 3, parola en az 12 karakter olmalı ve parolalar eşleşmelidir."; return; }
+        submit.disabled = true;
+        try { const salt = crypto.getRandomValues(new Uint8Array(16)); const hash = await derivePassword(password, salt); safeJsonSet(STORAGE.admin, { username, salt: bytesToBase64(salt), hash, iterations: 210000, createdAt: new Date().toISOString() }); setAuthenticated(true); renderAdmin(); } catch { status.textContent = "Güvenli parola özeti oluşturulamadı. Tarayıcınızın güvenli bağlamda çalıştığından emin olun."; submit.disabled = false; }
+      });
+    }
+    function renderLogin(dialog) {
+      const lock = attempts(); const panel = element("div", "login-panel"); panel.append(element("h3", "", "Yönetici girişi"), element("p", "", "İçerikleri yönetmek için hesabınızla oturum açın."));
+      const form = element("form"); form.append(field("Kullanıcı adı", "text", "username", 40), field("Parola", "password", "password", 128)); const status = element("p", "status"); status.setAttribute("role", "status"); const submit = element("button", "button primary", "Giriş yap"); submit.type = "submit"; form.append(submit, status); panel.append(form); dialog.append(panel);
+      if (lock.lockedUntil > Date.now()) { submit.disabled = true; status.textContent = "Çok fazla hatalı deneme. Beş dakika sonra tekrar deneyin."; }
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault(); const current = attempts(); if (current.lockedUntil > Date.now()) return;
+        const data = new FormData(form); const record = adminRecord(); const username = clean(data.get("username"), 40); const password = String(data.get("password") || ""); submit.disabled = true;
+        try { const candidate = await derivePassword(password, base64ToBytes(record.salt), record.iterations); if (username === record.username && constantTimeEqual(candidate, record.hash)) { clearFailures(); setAuthenticated(true); renderAdmin(); } else { const result = registerFailure(); status.textContent = result.lockedUntil > Date.now() ? "Hesap geçici olarak kilitlendi." : "Kullanıcı adı veya parola hatalı."; submit.disabled = false; } } catch { status.textContent = "Giriş doğrulanamadı."; submit.disabled = false; }
+      });
+    }
+    function renderDashboard(dialog) {
+      const body = element("div", "admin-body"); const side = element("aside", "admin-sidebar"); const content = element("section", "admin-content");
+      [["overview","Genel bakış"],["new","Yeni yazı"],["manage","Yazıları yönet"]].forEach(([view,label]) => { const button = element("button", "button", label); button.type = "button"; button.addEventListener("click", () => { state.adminView = view; renderAdmin(); }); side.append(button); });
+      const logout = element("button", "button", "Güvenli çıkış"); logout.type = "button"; logout.addEventListener("click", () => { setAuthenticated(false); clearTimeout(state.sessionTimer); renderAdmin(); }); side.append(logout); body.append(side, content); dialog.append(body);
+      if (state.adminView === "new") renderPostForm(content); else if (state.adminView === "manage") renderManager(content); else renderOverview(content);
+    }
+    function renderOverview(root) {
+      root.append(element("h3", "", "Genel bakış")); const metrics = element("div", "admin-metrics");
+      [[state.posts.length,"Toplam yazı"],[new Set(state.posts.map((p) => p.category)).size,"Aktif kategori"],["15 dk","Oturum süresi"]].forEach(([value,label]) => { const item = element("div", "metric"); item.append(element("strong", "", String(value)), element("span", "", label)); metrics.append(item); });
+      root.append(metrics); const note = element("div", "admin-note", "Bu statik sürümde yönetim paneli giriş istemeden açılır ve değişiklikler yalnızca bu tarayıcıda saklanır. İnternete açık gerçek bir yayında yönetim panelini bu şekilde kullanmayın; sunucu tarafı kimlik doğrulama ve yetkilendirme ekleyin."); root.append(note);
+    }
+    function renderPostForm(root) {
+      root.append(element("h3", "", "Yeni yazı ekle")); const form = element("form"); form.append(field("Başlık", "text", "title", 120), field("Özet", "text", "excerpt", 360), field("Kategori", "text", "category", 30, "Yazılım, Öğrenme, Üretkenlik veya Deneyim"), field("Tarih", "text", "date", 40, "11 Eylül 2026"), field("Okuma süresi", "text", "readTime", 12, "5 dk")); const status = element("p", "status"); const submit = element("button", "button primary", "Güvenli biçimde kaydet"); submit.type = "submit"; form.append(submit, status); root.append(form);
+      form.addEventListener("submit", (event) => { event.preventDefault(); const data = new FormData(form); const category = clean(data.get("category"), 30); const post = { id: crypto.randomUUID ? crypto.randomUUID() : `p-${Date.now()}`, title: clean(data.get("title"), 120), excerpt: clean(data.get("excerpt"), 360), category, date: clean(data.get("date"), 40), readTime: clean(data.get("readTime"), 12) }; if (post.title.length < 5 || post.excerpt.length < 20 || !CATEGORIES.slice(1).includes(category)) { status.textContent = "Alanları kontrol edin ve geçerli bir kategori kullanın."; return; } state.posts.unshift(post); savePosts(); renderPosts(); state.adminView = "manage"; renderAdmin(); showToast("Yazı kaydedildi."); });
+    }
+    function renderManager(root) {
+      root.append(element("h3", "", "Yazıları yönet")); state.posts.forEach((post) => { const row = element("div", "metric"); row.style.marginBottom = "10px"; const title = element("strong", "", post.title); title.style.fontSize = "1rem"; const remove = element("button", "button", "Sil"); remove.type = "button"; remove.style.marginTop = "10px"; remove.addEventListener("click", () => { if (!confirm("Bu yazıyı silmek istediğinizden emin misiniz?")) return; state.posts = state.posts.filter((item) => item.id !== post.id); savePosts(); renderPosts(); renderAdmin(); }); row.append(title, element("span", "", `${post.category} · ${post.date}`), remove); root.append(row); });
+      const reset = element("button", "button", "Varsayılan yazıları geri yükle"); reset.type = "button"; reset.addEventListener("click", () => { if (!confirm("Yerel değişiklikler silinsin mi?")) return; state.posts = DEFAULT_POSTS.map((post) => ({ ...post })); savePosts(); renderPosts(); renderAdmin(); }); root.append(reset);
+    }
+    $("#filters").addEventListener("click", (event) => { const button = event.target.closest("button[data-category]"); if (!button) return; state.category = CATEGORIES.includes(button.dataset.category) ? button.dataset.category : "Tümü"; renderFilters(); renderPosts(); });
+    $("#searchInput").addEventListener("input", (event) => { const value = clean(event.target.value, 80); if (event.target.value !== value) event.target.value = value; state.query = value; renderPosts(); });
+    $("#menuButton").addEventListener("click", () => { const menu = $("#mobileMenu"); const open = menu.hidden; menu.hidden = !open; menu.classList.toggle("open", open); $("#menuButton").setAttribute("aria-expanded", String(open)); $("#menuButton").textContent = open ? "×" : "☰"; });
+    $("#mobileMenu").addEventListener("click", (event) => { if (!event.target.closest("a")) return; $("#mobileMenu").hidden = true; $("#mobileMenu").classList.remove("open"); $("#menuButton").setAttribute("aria-expanded", "false"); $("#menuButton").textContent = "☰"; });
     $("#themeButton").addEventListener("click", () => applyTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark"));
-    $("#subscribeForm").addEventListener("submit", (event) => { event.preventDefault(); const input = $("#emailInput"); const email = clean(input.value, 254).toLowerCase(); const valid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email); $("#formStatus").textContent = valid ? "Teşekkürler! Abonelik talebiniz alındı." : "Lütfen geçerli bir e-posta adresi girin."; if (valid) input.value = ""; });
+    $("#subscribeForm").addEventListener("submit", (event) => { event.preventDefault(); const input = $("#emailInput"); const email = clean(input.value, 254).toLowerCase(); const valid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email); $("#formStatus").textContent = valid ? "Teşekkürler! Abonelik talebiniz alındı." : "Lütfen geçerli bir e-posta adresi girin."; if (valid) input.value = ""; });
     const adminButton = element("button", "button primary admin-trigger", "Yönetim"); adminButton.type = "button"; adminButton.setAttribute("aria-label", "Yönetim panelini aç"); adminButton.addEventListener("click", openAdmin); document.body.append(adminButton);
-    ["click", "keydown", "pointerdown"].forEach((eventName) => document.addEventListener(eventName, resetSessionTimer, { passive: true }));
+    ["click", "keydown", "pointerdown"].forEach((eventName) => document.addEventListener(eventName, resetSessionTimer, { passive: true }));
 
     loadPosts(); let savedTheme = ""; try { savedTheme = localStorage.getItem(STORAGE.theme) || ""; } catch {}
     applyTheme(savedTheme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")); renderFilters(); renderPosts();
