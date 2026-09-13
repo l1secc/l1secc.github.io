@@ -12,16 +12,17 @@
   <style>
     :root {
       color-scheme: light;
-      --bg: #fafaf9;
+      --bg: #f5f7fb;
       --surface: #ffffff;
-      --surface-soft: #f1f5f9;
-      --text: #0f172a;
+      --surface-soft: #eef2ff;
+      --text: #111827;
       --muted: #64748b;
-      --border: #e2e8f0;
-      --brand: #059669;
-      --brand-dark: #047857;
-      --hero: rgba(16, 185, 129, 0.16);
-      --shadow: 0 20px 50px rgba(15, 23, 42, 0.1);
+      --border: #dbe3f0;
+      --brand: #4f46e5;
+      --brand-dark: #3730a3;
+      --accent: #06b6d4;
+      --hero: rgba(79, 70, 229, 0.14);
+      --shadow: 0 24px 60px rgba(30, 41, 59, 0.12);
     }
 
     [data-theme="dark"] {
@@ -32,17 +33,18 @@
       --text: #f8fafc;
       --muted: #94a3b8;
       --border: #1e293b;
-      --brand: #34d399;
-      --brand-dark: #10b981;
-      --hero: rgba(16, 185, 129, 0.12);
-      --shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+      --brand: #818cf8;
+      --brand-dark: #a5b4fc;
+      --accent: #22d3ee;
+      --hero: rgba(99, 102, 241, 0.18);
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      background: var(--bg);
+      background: radial-gradient(circle at 85% 0%, var(--hero), transparent 30%), var(--bg);
       color: var(--text);
       font: 16px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       transition: background .2s ease, color .2s ease;
@@ -61,7 +63,7 @@
     }
     .nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
     .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-    .brand-mark { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 15px; background: #059669; color: white; font-weight: 900; box-shadow: 0 10px 25px rgba(5,150,105,.25); }
+    .brand-mark { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 15px; background: linear-gradient(135deg, var(--brand), var(--accent)); color: white; font-weight: 900; box-shadow: 0 10px 25px rgba(79,70,229,.25); }
     .brand strong, .brand small { display: block; }
     .brand small { color: var(--muted); }
     .links { display: flex; align-items: center; gap: 28px; }
@@ -75,7 +77,7 @@
       display: inline-flex; align-items: center; justify-content: center; gap: 8px;
     }
     .button:hover { transform: translateY(-1px); }
-    .button.primary { border-color: #059669; background: #059669; color: white; }
+    .button.primary { border-color: var(--brand); background: linear-gradient(135deg, var(--brand), var(--brand-dark)); color: white; box-shadow: 0 10px 22px rgba(79,70,229,.2); }
     .icon-button { width: 44px; padding: 0; }
     .menu-button { display: none; }
     .mobile-menu { display: none; padding: 0 0 16px; }
@@ -84,7 +86,7 @@
     .mobile-menu a:hover { background: var(--surface-soft); }
 
     .hero { position: relative; overflow: hidden; padding: 92px 0; }
-    .hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(circle at 76% 22%, var(--hero), transparent 34%); }
+    .hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(circle at 76% 22%, var(--hero), transparent 34%), linear-gradient(135deg, transparent 45%, rgba(6,182,212,.05)); }
     .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; gap: 54px; }
     .eyebrow { display: inline-flex; padding: 7px 13px; border: 1px solid color-mix(in srgb, var(--brand) 35%, var(--border)); border-radius: 999px; color: var(--brand-dark); background: color-mix(in srgb, var(--brand) 10%, var(--surface)); font-weight: 800; }
     h1 { max-width: 760px; margin: 24px 0 0; font-size: clamp(3rem, 7vw, 5.2rem); line-height: 1.02; letter-spacing: -.055em; }
@@ -92,7 +94,7 @@
     .lead { max-width: 680px; margin: 24px 0 0; color: var(--muted); font-size: 1.15rem; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
     .feature { padding: 30px; border: 1px solid var(--border); border-radius: 30px; background: var(--surface); box-shadow: var(--shadow); }
-    .pill { display: inline-flex; padding: 5px 11px; border-radius: 999px; background: #fef3c7; color: #92400e; font-size: .78rem; font-weight: 900; }
+    .pill { display: inline-flex; padding: 5px 11px; border-radius: 999px; background: #e0e7ff; color: #3730a3; font-size: .78rem; font-weight: 900; }
     .feature h2 { margin: 22px 0 10px; font-size: 2rem; line-height: 1.15; }
     .feature p { color: var(--muted); }
     .meta { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 24px; color: var(--muted); font-size: .9rem; }
@@ -106,7 +108,7 @@
     .search-icon { position: absolute; left: 15px; top: 12px; color: var(--muted); }
     .filters { display: flex; flex-wrap: wrap; gap: 9px; margin: 30px 0; }
     .filter { border: 1px solid var(--border); border-radius: 999px; padding: 8px 15px; background: var(--surface); color: var(--text); cursor: pointer; font-weight: 750; }
-    .filter.active { border-color: #059669; background: #059669; color: white; }
+    .filter.active { border-color: var(--brand); background: var(--brand); color: white; }
     .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
     .card { display: flex; flex-direction: column; min-height: 330px; padding: 24px; border: 1px solid var(--border); border-radius: 22px; background: var(--surface); transition: transform .2s ease, box-shadow .2s ease; }
     .card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
@@ -118,11 +120,14 @@
     .read { border: 0; background: transparent; color: var(--brand-dark); font-weight: 900; cursor: pointer; }
     .empty { display: none; padding: 38px; border: 1px dashed var(--border); border-radius: 18px; color: var(--muted); text-align: center; }
 
-    .about { background: #0f172a; color: #f8fafc; }
+    .about { background: linear-gradient(135deg, #111827, #1e1b4b); color: #f8fafc; }
     .about-grid { display: grid; grid-template-columns: .75fr 1.25fr; gap: 48px; align-items: center; }
-    .profile { min-height: 300px; display: grid; place-items: center; border-radius: 30px; background: linear-gradient(135deg, #10b981, #0f766e); text-align: center; box-shadow: var(--shadow); }
+    .profile { min-height: 300px; display: grid; place-items: center; border-radius: 30px; background: linear-gradient(135deg, var(--brand), var(--accent)); text-align: center; box-shadow: var(--shadow); }
     .avatar { width: 98px; height: 98px; display: grid; place-items: center; margin: auto; border: 4px solid rgba(255,255,255,.3); border-radius: 50%; background: rgba(255,255,255,.16); font-size: 2rem; font-weight: 900; }
     .about-copy p:last-child { color: #cbd5e1; font-size: 1.1rem; }
+    .social-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+    .social-link { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid rgba(255,255,255,.18); border-radius: 12px; color: #e0e7ff; background: rgba(255,255,255,.07); text-decoration: none; font-weight: 800; transition: transform .2s ease, background .2s ease; }
+    .social-link:hover { transform: translateY(-2px); background: rgba(255,255,255,.14); }
 
     .admin-trigger { position: fixed; right: 20px; bottom: 20px; z-index: 30; box-shadow: var(--shadow); }
     .admin-dialog { width: min(920px, calc(100% - 28px)); max-height: 88vh; padding: 0; border: 1px solid var(--border); border-radius: 24px; background: var(--surface); color: var(--text); box-shadow: 0 30px 90px rgba(0,0,0,.35); overflow: hidden; }
@@ -143,7 +148,7 @@
 
 
     .newsletter { padding: 72px 0; }
-    .newsletter-box { display: grid; grid-template-columns: 1fr .9fr; align-items: center; gap: 44px; padding: 46px; border-radius: 30px; background: #059669; color: white; box-shadow: 0 22px 45px rgba(5,150,105,.25); }
+    .newsletter-box { display: grid; grid-template-columns: 1fr .9fr; align-items: center; gap: 44px; padding: 46px; border-radius: 30px; background: linear-gradient(135deg, var(--brand), #0891b2); color: white; box-shadow: 0 22px 45px rgba(79,70,229,.25); }
     .newsletter-box h2 { margin: 0; font-size: 2.5rem; line-height: 1.1; }
     .newsletter-box p { color: #d1fae5; }
     .form-row { display: flex; gap: 10px; }
@@ -181,7 +186,7 @@
         <span><strong>Kerem Demir</strong><small>Öğren, üret, paylaş.</small></span>
       </a>
       <nav class="links" aria-label="Ana menü">
-        <a href="#yazilar">Yazılar</a><a href="#hakkimda">Hakkımda</a><a href="#iletisim">İletişim</a>
+        <a href="#yazilar">Yazılar</a><a href="#hakkimda">Hakkımda</a><a href="#baglantilar">Bağlantılar</a><a href="#iletisim">İletişim</a>
       </nav>
       <div class="actions">
         <button id="themeButton" class="button icon-button" type="button" aria-label="Koyu temaya geç" title="Temayı değiştir">☾</button>
@@ -190,7 +195,7 @@
       </div>
     </div>
     <nav id="mobileMenu" class="container mobile-menu" aria-label="Mobil menü" hidden>
-      <a href="#yazilar">Yazılar</a><a href="#hakkimda">Hakkımda</a><a href="#iletisim">İletişim</a>
+      <a href="#yazilar">Yazılar</a><a href="#hakkimda">Hakkımda</a><a href="#baglantilar">Bağlantılar</a><a href="#iletisim">İletişim</a>
     </nav>
   </header>
 
@@ -226,7 +231,14 @@
     <section id="hakkimda" class="section about">
       <div class="container about-grid">
         <div class="profile"><div><div class="avatar">KD</div><h3>Kerem Demir</h3><p>Öğrenci ve üretici</p></div></div>
-        <div class="about-copy"><p class="kicker">Hakkımda</p><h2>Her gün biraz daha iyi.</h2><p>Merhaba, ben Kerem. Teknolojiyle yeni fikirler üretmeyi, öğrendiklerimi anlaşılır hale getirmeyi ve gelişim sürecimi paylaşmayı seviyorum. Bu blog, notlarımı kalıcılaştırdığım ve aynı yolda ilerleyenlerle buluşturduğum dijital alanım.</p></div>
+        <div class="about-copy"><p class="kicker">Hakkımda</p><h2>Her gün biraz daha iyi.</h2><p>Merhaba, ben Kerem. Teknolojiyle yeni fikirler üretmeyi, öğrendiklerimi anlaşılır hale getirmeyi ve gelişim sürecimi paylaşmayı seviyorum. Bu blog, notlarımı kalıcılaştırdığım ve aynı yolda ilerleyenlerle buluşturduğum dijital alanım.</p>
+          <div id="baglantilar" class="social-links" aria-label="Sosyal bağlantılar">
+            <a class="social-link" href="https://github.com/l1secc/" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+            <a class="social-link" href="https://www.instagram.com/l1sec" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+            <a class="social-link" href="https://www.threads.com/@l1sec" target="_blank" rel="noopener noreferrer">Threads ↗</a>
+            <a class="social-link" href="https://x.com/l1secc" target="_blank" rel="noopener noreferrer">X ↗</a>
+          </div>
+        </div>
       </div>
     </section>
 
