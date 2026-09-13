@@ -54,6 +54,9 @@
       font: 16px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       transition: background .2s ease, color .2s ease;
     }
+    body > header, body > main, body > footer { position: relative; z-index: 1; }
+    #weatherCanvas { position: fixed; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none; opacity: .62; }
+    [data-theme="dark"] #weatherCanvas { opacity: .78; }
     button, input { font: inherit; }
     a { color: inherit; }
     :focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; }
@@ -227,10 +230,12 @@
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+      #weatherCanvas { display: none; }
     }
   </style>
 </head>
 <body>
+  <canvas id="weatherCanvas" aria-hidden="true"></canvas>
   <header class="header">
     <div class="container nav">
       <a class="brand" href="#anasayfa" aria-label="Kerem Demir ana sayfa">
@@ -400,11 +405,93 @@
       if (!toast) { toast = element("div", "", ""); toast.id = "toast"; Object.assign(toast.style, { position:"fixed", left:"50%", bottom:"24px", transform:"translateX(-50%)", zIndex:"100", padding:"12px 18px", borderRadius:"12px", background:"#0f172a", color:"white", boxShadow:"0 14px 40px rgba(0,0,0,.25)" }); toast.setAttribute("role", "status"); document.body.append(toast); }
       toast.textContent = clean(message, 240); toast.hidden = false; clearTimeout(toast.timer); toast.timer = setTimeout(() => { toast.hidden = true; }, 3200);
     }
-    function applyTheme(theme) {
+const weatherCanvas = $("#weatherCanvas");
+const weatherContext = weatherCanvas.getContext("2d");
+const weatherMotion = matchMedia("(prefers-reduced-motion: no-preference)");
+const weather = { particles: [], dark: false, width: 0, height: 0, lastTime: 0, frame: 0 };
+function weatherParticle() {
+  if (weather.dark) {
+    return {
+      x: Math.random() * weather.width,
+      y: Math.random() * weather.height,
+      size: 1.5 + Math.random() * 3.5,
+      speed: 18 + Math.random() * 30,
+      drift: -8 + Math.random() * 16,
+      opacity: .28 + Math.random() * .55,
+      phase: Math.random() * Math.PI * 2
+    };
+  }
+  return {
+    x: Math.random() * (weather.width + 100),
+    y: Math.random() * weather.height,
+    length: 10 + Math.random() * 18,
+    speed: 380 + Math.random() * 280,
+    drift: 28 + Math.random() * 34,
+    opacity: .12 + Math.random() * .3
+  };
+}
+function resizeWeather() {
+  const ratio = Math.min(window.devicePixelRatio || 1, 2);
+  weather.width = window.innerWidth;
+  weather.height = window.innerHeight;
+  weatherCanvas.width = Math.floor(weather.width * ratio);
+  weatherCanvas.height = Math.floor(weather.height * ratio);
+  weatherContext.setTransform(ratio, 0, 0, ratio, 0, 0);
+  const count = Math.min(240, Math.max(110, Math.floor(weather.width * weather.height / 7000)));
+  weather.particles = Array.from({ length: count }, weatherParticle);
+}
+function setWeatherMode(dark) {
+  weather.dark = dark;
+  resizeWeather();
+}
+function drawWeather(timestamp) {
+  if (!weatherMotion.matches) return;
+  const elapsed = Math.min((timestamp - weather.lastTime) / 1000 || 0, .05);
+  weather.lastTime = timestamp;
+  weatherContext.clearRect(0, 0, weather.width, weather.height);
+  weather.particles.forEach((particle) => {
+    particle.y += particle.speed * elapsed;
+    particle.x += (weather.dark ? particle.drift * Math.sin(timestamp / 1400 + particle.phase) : particle.drift) * elapsed;
+    if (particle.y > weather.height + 30 || particle.x > weather.width + 30 || particle.x < -30) {
+      Object.assign(particle, weatherParticle());
+      particle.y = -30;
+    }
+    if (weather.dark) {
+      weatherContext.beginPath();
+      weatherContext.fillStyle = `rgba(255,255,255,${particle.opacity})`;
+      weatherContext.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+      weatherContext.fill();
+    } else {
+      weatherContext.beginPath();
+      weatherContext.strokeStyle = `rgba(79,70,229,${particle.opacity})`;
+      weatherContext.lineWidth = .8;
+      weatherContext.moveTo(particle.x, particle.y);
+      weatherContext.lineTo(particle.x - particle.drift * .035, particle.y + particle.length);
+      weatherContext.stroke();
+    }
+  });
+  weather.frame = requestAnimationFrame(drawWeather);
+}
+window.addEventListener("resize", resizeWeather, { passive: true });
+weatherMotion.addEventListener?.("change", () => {
+  if (weatherMotion.matches) {
+    resizeWeather();
+    weather.lastTime = performance.now();
+    cancelAnimationFrame(weather.frame);
+    weather.frame = requestAnimationFrame(drawWeather);
+  } else {
+    cancelAnimationFrame(weather.frame);
+    weatherContext.clearRect(0, 0, weather.width, weather.height);
+  }
+});
+resizeWeather();
+if (weatherMotion.matches) weather.frame = requestAnimationFrame(drawWeather);
+function applyTheme(theme) {
       const dark = theme === "dark"; document.documentElement.dataset.theme = dark ? "dark" : "light";
+  setWeatherMode(dark);
       $("#themeButton").textContent = dark ? "☀" : "☾"; $("#themeButton").setAttribute("aria-label", dark ? "Açık temaya geç" : "Koyu temaya geç");
       try { localStorage.setItem(STORAGE.theme, dark ? "dark" : "light"); } catch {}
-    }
+}
 
     function openAdmin() {
       let dialog = $("#adminDialog");
