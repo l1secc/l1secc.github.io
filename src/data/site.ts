@@ -22,7 +22,7 @@ export const tooling: string[] = []
 
 export const socials = {
   github: 'https://github.com/l1secc/l1secc',
-  email: '',
+  email: 'demir.abdulkerem@gmail.com',
   linkedin: 'https://www.linkedin.com/in/abdulkerem-demir-339262316/',
   instagram: 'https://instagram.com/l1sec',
   x: 'https://x.com/l1secc',
