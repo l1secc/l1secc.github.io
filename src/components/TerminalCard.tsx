@@ -15,7 +15,7 @@ const initialFileSystem: FileSystem = {
   'projects': { name: 'projects', type: 'dir' },
   'research': { name: 'research', type: 'dir' },
   'about.txt': { name: 'about.txt', type: 'file', content: 'Kerem - Security Researcher\nFocus: Cybersecurity, Web Security, Linux' },
-  'contact.txt': { name: 'contact.txt', type: 'file', content: 'GitHub: github.com/l1secc\nEmail: contact@kerem.dev' },
+  'contact.txt': { name: 'contact.txt', type: 'file', content: 'Email: demir.abdulkerem@gmail.com\nGitHub: https://github.com/l1secc/l1secc\nLinkedIn: https://www.linkedin.com/in/abdulkerem-demir-339262316/\nInstagram: https://instagram.com/l1sec\nX: https://x.com/l1secc' },
   'skills.txt': { name: 'skills.txt', type: 'file', content: 'Python, Bash, Security Research, Linux, Web Security, Red Team' }
 }
 
@@ -40,7 +40,11 @@ const commands = {
   focus: () => 'cybersecurity, web-security, linux, red-team, ai',
   status: () => 'learning... building... researching...',
   skills: () => 'Python, Bash, Security Research, Linux, Web Security',
-  social: () => 'GitHub: github.com/l1secc',
+  social: () => `Email: demir.abdulkerem@gmail.com
+GitHub: https://github.com/l1secc/l1secc
+LinkedIn: https://www.linkedin.com/in/abdulkerem-demir-339262316/
+Instagram: https://instagram.com/l1sec
+X: https://x.com/l1secc`,
   clear: () => 'CLEAR',
   date: () => new Date().toLocaleDateString('tr-TR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
 }
