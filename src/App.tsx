@@ -11,6 +11,7 @@ import Research from './sections/Research'
 import Tooling from './sections/Tooling'
 import Writing from './sections/Writing'
 import Blog from './sections/Blog'
+import BlogPost from './sections/BlogPost'
 
 function GitHubPagesRedirect() {
   const location = useLocation()
@@ -43,6 +44,7 @@ export default function App() {
         <Route path="/tooling" element={<><Hero /><Tooling /></>} />
         <Route path="/contact" element={<><Hero /><Contact /></>} />
         <Route path="/blog" element={<><Hero /><Blog /></>} />
+        <Route path="/blog/:slug" element={<><Hero /><BlogPost /></>} />
       </Routes>
     </main>
     <Footer />
