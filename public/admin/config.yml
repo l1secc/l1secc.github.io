@@ -2,7 +2,7 @@ backend:
   name: github
   repo: l1secc/l1secc.github.io
   branch: main
-  client_id: 0v23LiAwbRdyHxQ3FqR2
+  client_id: Ov23liAWbRdyHxQ3FqR2
   site_url: https://keremdemir.me
   use_proxy: false
 
