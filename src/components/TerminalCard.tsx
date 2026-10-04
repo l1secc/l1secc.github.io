@@ -1,5 +1,6 @@
 import { ArrowDownRight } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface File {
   name: string
@@ -20,22 +21,7 @@ const initialFileSystem: FileSystem = {
 }
 
 const commands = {
-  help: () => `Available commands:
-  whoami     - Display your identity
-  focus      - Show current focus areas
-  status     - Show current status
-  skills     - List technical skills
-  social     - Show social links
-  clear      - Clear terminal
-  date       - Show current date
-  ls         - List directory contents
-  pwd        - Print working directory
-  cd         - Change directory
-  cat        - Display file contents
-  echo       - Print text
-  mkdir      - Create directory
-  touch      - Create file
-  rm         - Remove file/directory`,
+  help: (t: any) => t('terminal.help'),
   whoami: () => 'kerem',
   focus: () => 'cybersecurity, web-security, linux, red-team, ai',
   status: () => 'learning... building... researching...',
@@ -50,8 +36,9 @@ X: https://x.com/l1secc`,
 }
 
 export default function TerminalCard() {
+  const { t } = useTranslation()
   const [history, setHistory] = useState([
-    { type: 'output', content: 'Welcome to Kerem\'s terminal. Type "help" for available commands.' }
+    { type: 'output', content: t('terminal.welcome') }
   ])
   const [input, setInput] = useState('')
   const [currentDir, setCurrentDir] = useState('')
@@ -159,7 +146,13 @@ export default function TerminalCard() {
 
       default:
         if (commands[cmd as keyof typeof commands]) {
-          return commands[cmd as keyof typeof commands]()
+          const cmdFn = commands[cmd as keyof typeof commands]
+          if (typeof cmdFn === 'function') {
+            if (cmd === 'help') {
+              return cmdFn(t)
+            }
+            return cmdFn()
+          }
         }
         return `Command not found: ${cmd}. Type "help" for available commands.`
     }
