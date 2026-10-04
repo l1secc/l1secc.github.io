@@ -4,6 +4,7 @@ backend:
   branch: main
   client_id: 0v23LiAwbRdyHxQ3FqR2
   site_url: https://keremdemir.me
+  use_proxy: false
 
 media_folder: "public/images"
 public_folder: "/images"
