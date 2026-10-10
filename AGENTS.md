@@ -33,7 +33,7 @@ npm run preview  # dist'i yerelde doğrula
 
 - **Test / lint /typecheck script'i yok.** `npm test`, `npm run lint` uydurma.
   Tek doğrulama aracı `tsc -b` (build'e gömülü) + `npm run preview`.
-- CI Node 20 kullanıyor; yerel sürüm farklı olabilir (`npm ci` ikisinde de temiz).
+- CI Node 24 (LTS) kullanıyor; yerel sürüm farklı olabilir (`npm ci` ikisinde de temiz).
 
 ## Güvenlik kuralları
 
@@ -58,7 +58,7 @@ veri ekleme, boş durumları "düzeltme". `socials`'ta boş link, gizlenmek yeri
 
 ## Deploy
 
-`main`'e push → `.github/workflows/deploy.yml`: Node 20 → `npm ci` →
+`main`'e push → `.github/workflows/deploy.yml`: Node 24 → `npm ci` →
 `npm run build` → `./dist` → Pages. Yani **push = canlıya çıkma**.
 
 - `dist/` commit'leme (`.gitignore`'da).
