@@ -6,7 +6,7 @@ rehype-sanitize · GitHub Pages.
 ## Önce skill'i yükle
 
 Bu repo için `kerem-portfolio` skill'i var: tasarım sözleşmesi, bölüm anatomisi,
-içerik yazımı, Decap CMS akışı, build/deploy. Kod okumadan veya düzenlemeden
+içerik yazımı, Markdown blog akışı, build/deploy. Kod okumadan veya düzenlemeden
 önce yükle. Bu dosya yalnızca skill'de olmayanları tutar.
 
 ## Durum (2026-10-10)
@@ -14,7 +14,9 @@ içerik yazımı, Decap CMS akışı, build/deploy. Kod okumadan veya düzenleme
 Build sağlıklı, blog prod'da çalışıyor, koyu/açık tema ve tam EN/TR i18n var.
 
 - `npm run build` temiz geçiyor. Deploy her push'ta başarılı.
-- `content/` → `public/content/` taşındı; `dist/content/blog/posts.json` üretiliyor.
+- Blog yazıları `public/content/blog/*.md`; `posts.json` (indeks) build sırasında
+  `vite.config.ts → blogIndexPlugin()` ile **otomatik üretilir**, elle tutulmaz.
+  Dev'de aynı path'i Vite middleware servis eder (`/content/blog/posts.json`).
 - Tema: `<html data-theme="dark|light">`, `localStorage['kerem.theme']`,
   sistem tercihine düşer, FOUC'u `public/theme-init.js` engelliyor.
 - Dil: `localStorage['kerem.lang']` = `en|tr`, `<html lang>` güncellenir,
@@ -56,15 +58,31 @@ koordinatları gibi). Bunlar bilinçli tasarım kararları — placeholder ya da
 veri ekleme, boş durumları "düzeltme". `socials`'ta boş link, gizlenmek yerine
 "ADD LINK" rozetiyle gösterilir; aynı mantık.
 
+## Blog içeriği (CMS yok)
+
+Blog tamamen Markdown tabanlı; admin/Decap paneli **kasıtlı olarak kaldırıldı**
+(GitHub Pages'te OAuth tamamlanamıyordu ve `posts.json`'u üretmiyordu).
+
+- Yazı: `public/content/blog/<slug>.md`, başında `---` front matter:
+  `title`, `date`, `category`, opsiyonel `image` / `excerpt`. Dosya adı = slug
+  (`2026-01-01-my-post.md` → `/blog/2026-01-01-my-post`).
+- İndeks `posts.json` **elle düzenlenmez**; build onu `.md` dosyalarından üretir
+  (`vite.config.ts → blogIndexPlugin`, dev'de middleware, build'de `emitFile`).
+- `_` / `.` ile başlayan dosyalar atlanır; `_template.md` başlangıç şablonudur.
+- Front matter parse'ı bilinçli olarak düz `key: value` (YAML bağımlılığı yok);
+  slug doğrulaması `isValidSlug()` ile aynı deseni kullanır.
+
 ## Deploy
 
 `main`'e push → `.github/workflows/deploy.yml`: Node 24 → `npm ci` →
 `npm run build` → `./dist` → Pages. Yani **push = canlıya çıkma**.
 
 - `dist/` commit'leme (`.gitignore`'da).
-- Decap CMS `/admin/` üzerinden commit attığında aynı pipeline tetiklenir.
-- Decap `folder: public/content/blog` — `public/` altına yazıyor, build'e giriyor.
-- `base: '/'` sabit, site kökten sunuluyor (`l1secc.github.io` kullanıcı sayfası).
+- Blog: `public/content/blog/` altına `.md` ekle → build indeksi üretir → blog
+  listesinde çıkar. `_` veya `.` ile başlayan dosyalar indekslenmez
+  (`_template.md` bu yüzden yayınlanmaz). CMS/admin paneli **yok**; içerik ya
+  GitHub web arayüzünden ya yerelden (git) eklenir.
+- `base: '/'` sabit, site kökten sunuluyor (custom domain `keremdemir.me`).
 
 ## Stil ve düzen
 
