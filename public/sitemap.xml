@@ -1,66 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://l1secc.github.io/</loc>
+    <loc>https://keremdemir.me/</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://l1secc.github.io/" />
-    <xhtml:link rel="alternate" hreflang="tr" href="https://l1secc.github.io/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://keremdemir.me/" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://keremdemir.me/" />
   </url>
   <url>
-    <loc>https://l1secc.github.io/about</loc>
+    <loc>https://keremdemir.me/about</loc>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://l1secc.github.io/about" />
-    <xhtml:link rel="alternate" hreflang="tr" href="https://l1secc.github.io/about" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://keremdemir.me/about" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://keremdemir.me/about" />
   </url>
   <url>
-    <loc>https://l1secc.github.io/focus</loc>
+    <loc>https://keremdemir.me/focus</loc>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://l1secc.github.io/focus" />
-    <xhtml:link rel="alternate" hreflang="tr" href="https://l1secc.github.io/focus" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://keremdemir.me/focus" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://keremdemir.me/focus" />
   </url>
   <url>
-    <loc>https://l1secc.github.io/projects</loc>
+    <loc>https://keremdemir.me/projects</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://l1secc.github.io/projects" />
-    <xhtml:link rel="alternate" hreflang="tr" href="https://l1secc.github.io/projects" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://keremdemir.me/projects" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://keremdemir.me/projects" />
   </url>
   <url>
-    <loc>https://l1secc.github.io/research</loc>
+    <loc>https://keremdemir.me/research</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://l1secc.github.io/research" />
-    <xhtml:link rel="alternate" hreflang="tr" href="https://l1secc.github.io/research" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://keremdemir.me/research" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://keremdemir.me/research" />
   </url>
   <url>
-    <loc>https://l1secc.github.io/writing</loc>
+    <loc>https://keremdemir.me/writing</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://l1secc.github.io/writing" />
-    <xhtml:link rel="alternate" hreflang="tr" href="https://l1secc.github.io/writing" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://keremdemir.me/writing" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://keremdemir.me/writing" />
   </url>
   <url>
-    <loc>https://l1secc.github.io/tooling</loc>
+    <loc>https://keremdemir.me/tooling</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://l1secc.github.io/tooling" />
-    <xhtml:link rel="alternate" hreflang="tr" href="https://l1secc.github.io/tooling" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://keremdemir.me/tooling" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://keremdemir.me/tooling" />
   </url>
   <url>
-    <loc>https://l1secc.github.io/blog</loc>
+    <loc>https://keremdemir.me/blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://l1secc.github.io/blog" />
-    <xhtml:link rel="alternate" hreflang="tr" href="https://l1secc.github.io/blog" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://keremdemir.me/blog" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://keremdemir.me/blog" />
   </url>
   <url>
-    <loc>https://l1secc.github.io/contact</loc>
+    <loc>https://keremdemir.me/contact</loc>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://l1secc.github.io/contact" />
-    <xhtml:link rel="alternate" hreflang="tr" href="https://l1secc.github.io/contact" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://keremdemir.me/contact" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://keremdemir.me/contact" />
   </url>
 </urlset>
