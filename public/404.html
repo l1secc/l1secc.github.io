@@ -12,7 +12,7 @@
     // Reject anything that could escape the origin: protocol-relative "//host",
     // backslashes, control characters, or a missing leading slash.
     if (!/^\/(?!\/)[^\x00-\x1F]*$/.test(path) || path.indexOf('\\') !== -1) path = '/'
-    var target = '/?p=' + path.slice(1).split('/').join('/').replace(/&/g, '~and~').replace(/\?/g, '~q~').replace(/#/g, '~h~')
+    var target = '/?p=' + path.replace(/&/g, '~and~').replace(/\?/g, '~q~').replace(/#/g, '~h~')
     if (l.search) target += '&q=' + l.search.slice(1).replace(/&/g, '~and~')
     if (l.hash) target += '&h=' + l.hash.slice(1)
     l.replace(l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + '/' + target)
