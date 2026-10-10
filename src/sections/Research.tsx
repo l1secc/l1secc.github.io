@@ -1,11 +1,34 @@
 import { ArrowUpRight, BookOpenText } from 'lucide-react'
 import SectionHeading from '../components/SectionHeading'
+import Reveal from '../components/Reveal'
+import { useTranslation } from 'react-i18next'
 
-const futureNotes = ['CTF writeups', 'Web security experiments', 'Linux & tooling', 'Reverse engineering', 'AI security']
+const noteKeys = ['ctf', 'web', 'linux', 'reversing', 'ai'] as const
+
 export default function Research() {
+  const { t } = useTranslation()
   return <section className="research section-shell section-pad" id="research">
-    <SectionHeading index="04" title="The lab notebook." detail="An open record of questions, tests, and things learned along the way." />
-    <div className="research-layout"><div className="lab-cover"><div className="lab-cover-top"><BookOpenText size={17} /><span>RESEARCH JOURNAL</span><span>VOL. 01</span></div><div className="lab-graphic" aria-hidden="true"><span className="lab-ring ring-one" /><span className="lab-ring ring-two" /><span className="lab-ring ring-three" /><i className="lab-node node-a" /><i className="lab-node node-b" /><i className="lab-node node-c" /><i className="lab-node node-d" /><i className="lab-center" /><span className="lab-coordinate co-a">41.0082° N</span><span className="lab-coordinate co-b">29.0122° E</span></div><div className="lab-cover-foot"><span>OBSERVE / TEST / LEARN</span><span>FIELD STUDY SERIES</span></div></div>
-      <div className="research-index"><span className="empty-label">NOTES TAKING SHAPE</span><p>Future entries may include:</p>{futureNotes.map((note, i) => <div className="research-row" key={note}><span>0{i + 1}</span><span>{note}</span><ArrowUpRight size={13} /></div>)}</div></div>
+    <SectionHeading index="04" title={t('research.title')} detail={t('research.detail')} />
+    <div className="research-layout">
+      <Reveal className="lab-cover">
+        <div className="lab-cover-top"><BookOpenText size={17} strokeWidth={1.5} /><span>{t('research.coverLabel')}</span><span>{t('research.volume')}</span></div>
+        <div className="lab-graphic" aria-hidden="true">
+          <span className="lab-ring ring-one" /><span className="lab-ring ring-two" /><span className="lab-ring ring-three" />
+          <i className="lab-node node-a" /><i className="lab-node node-b" /><i className="lab-node node-c" /><i className="lab-node node-d" />
+          <i className="lab-center" />
+          <span className="lab-coordinate co-a">41.0082° N</span>
+          <span className="lab-coordinate co-b">29.0122° E</span>
+          <span className="lab-sweep" />
+        </div>
+        <div className="lab-cover-foot"><span>{t('research.coverFootA')}</span><span>{t('research.coverFootB')}</span></div>
+      </Reveal>
+      <Reveal className="research-index" delay={140}>
+        <span className="empty-label">{t('research.notesLabel')}</span>
+        <p>{t('research.notesIntro')}</p>
+        {noteKeys.map((key, index) => <div className="research-row" key={key} style={{ transitionDelay: `${index * 55}ms` }}>
+          <span>0{index + 1}</span><span>{t(`research.notes.${key}`)}</span><ArrowUpRight size={13} strokeWidth={1.5} />
+        </div>)}
+      </Reveal>
+    </div>
   </section>
 }

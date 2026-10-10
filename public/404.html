@@ -1,32 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Redirecting...</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Redirecting…</title>
   <script>
-    var segmentCount = 0;
-    var l = window.location;
-    l.replace(
-      l.protocol +
-      '//' +
-      l.hostname +
-      (l.port ? ':' + l.port : '') +
-      l.pathname
-      .split('/')
-      .slice(0, 1 + segmentCount)
-      .join('/') +
-      '/?p=/' +
-      l.pathname
-      .slice(1)
-      .split('/')
-      .slice(segmentCount)
-      .join('/')
-      .replace(/&/g, '~and~') +
-      (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-      l.hash
-    );
+  (function () {
+    var l = window.location
+    var path = l.pathname || '/'
+    // Reject anything that could escape the origin: protocol-relative "//host",
+    // backslashes, control characters, or a missing leading slash.
+    if (!/^\/(?!\/)[^\x00-\x1F]*$/.test(path) || path.indexOf('\\') !== -1) path = '/'
+    var target = '/?p=' + path.slice(1).split('/').join('/').replace(/&/g, '~and~').replace(/\?/g, '~q~').replace(/#/g, '~h~')
+    if (l.search) target += '&q=' + l.search.slice(1).replace(/&/g, '~and~')
+    if (l.hash) target += '&h=' + l.hash.slice(1)
+    l.replace(l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + '/' + target)
+  })()
   </script>
 </head>
 <body>
+  <noscript><p>If you are not redirected automatically, <a href="/">return to the homepage</a>.</p></noscript>
 </body>
 </html>

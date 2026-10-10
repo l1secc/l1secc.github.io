@@ -3,16 +3,19 @@ backend:
   repo: l1secc/l1secc.github.io
   branch: main
   client_id: Ov23liAWbRdyHxQ3FqR2
-  site_url: https://keremdemir.me
+  site_url: https://l1secc.github.io
   use_proxy: false
 
 media_folder: "public/images"
 public_folder: "/images"
+site_url: https://l1secc.github.io
+display_url: https://l1secc.github.io
+logo_url: https://l1secc.github.io/favicon.svg
 
 collections:
   - name: "blog"
     label: "Blog Posts"
-    folder: "content/blog"
+    folder: "public/content/blog"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:

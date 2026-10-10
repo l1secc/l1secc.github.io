@@ -1,0 +1,13 @@
+{
+  "name": "Kerem — Security, Systems & Technology",
+  "short_name": "Kerem",
+  "description": "Cybersecurity, systems and technology field notes.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#101110",
+  "theme_color": "#101110",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
