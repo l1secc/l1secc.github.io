@@ -18,7 +18,7 @@ export default function Contact() {
     <SectionHeading index="06" title={t('contact.title')} />
     <div className="contact-bottom">
       <Reveal as="p" delay={80}>{t('contact.description')}</Reveal>
-      <Reveal className="contact-links" delay={160}>
+      <Reveal className="contact-links" delay={160} variant="right">
         {links.map(({ label, href, icon: Icon }) => href
           ? <a href={href} key={label} target={label === 'Email' ? undefined : '_blank'} rel="noopener noreferrer nofollow">
               <Icon size={16} strokeWidth={1.5} /> {label}<ArrowUpRight size={13} strokeWidth={1.5} />

@@ -99,4 +99,8 @@ Blog tamamen Markdown tabanlı; admin/Decap paneli **kasıtlı olarak kaldırıl
 - Yorum yazma; ikonlar `lucide-react`, ince `strokeWidth` (1.3–1.5).
 - Yeni animasyon eklerken **her zaman** `@media(prefers-reduced-motion:no-preference)`
   bloğuna yaz (`prefers-reduced-motion:reduce` altında hepsi kapanır).
+  Efektler ayrı bileşenlerde: `BootSequence` (ilk ziyaret, `sessionStorage['kerem.booted']`),
+  `AmbientField`, `TiltCard`, `Magnetic`, `ScrambleText`, `Marquee`, `SectionRail`,
+  `.page-transition` ve `Reveal` `variant="up|left|right|scale"` (detay: skill).
+  Animasyonlu özellik `transform` üzerinden yürüsün; `background-position` animasyonu yapma.
 - Tailwind **kaldırıldı**. Utility class kullanma; `styles.css` içine kural ekle.

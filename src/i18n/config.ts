@@ -126,6 +126,18 @@ const en = {
       tagline: 'Cybersecurity · Technology · Research',
       backToTop: 'BACK TO TOP'
     },
+    boot: {
+      status: 'INITIALISING FIELD NOTES',
+      line1: 'booting kerem.portfolio',
+      line2: 'mounting /dev/curiosity',
+      line3: 'loading security modules',
+      line4: 'indexing research notes',
+      line5: 'handshake complete',
+      skip: 'PRESS ANY KEY TO SKIP'
+    },
+    marquee: {
+      items: ['CYBERSECURITY', 'WEB SECURITY', 'RED TEAM', 'LINUX', 'PROGRAMMING', 'AI', 'RESEARCH', 'FIELD NOTES']
+    },
     palette: {
       title: 'COMMAND PALETTE',
       placeholder: 'Type a command or search…',
@@ -294,6 +306,18 @@ const tr = {
     footer: {
       tagline: 'Siber Güvenlik · Teknoloji · Araştırma',
       backToTop: 'BAŞA DÖN'
+    },
+    boot: {
+      status: 'ALAN NOTLARI BAŞLATILIYOR',
+      line1: 'kerem.portfolio başlatılıyor',
+      line2: '/dev/merak bağlanıyor',
+      line3: 'güvenlik modülleri yükleniyor',
+      line4: 'araştırma notları dizinleniyor',
+      line5: 'el sıkışma tamamlandı',
+      skip: 'ATLAMAK İÇİN BİR TUŞA BAS'
+    },
+    marquee: {
+      items: ['SİBER GÜVENLİK', 'WEB GÜVENLİĞİ', 'RED TEAM', 'LINUX', 'PROGRAMLAMA', 'YAPAY ZEKA', 'ARAŞTIRMA', 'ALAN NOTLARI']
     },
     palette: {
       title: 'KOMUT PALETİ',

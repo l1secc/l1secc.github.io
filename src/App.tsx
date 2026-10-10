@@ -5,6 +5,10 @@ import { ArrowLeft } from 'lucide-react'
 import Navigation from './components/Navigation'
 import CommandPalette from './components/CommandPalette'
 import CursorGlow from './components/CursorGlow'
+import AmbientField from './components/AmbientField'
+import BootSequence from './components/BootSequence'
+import Marquee from './components/Marquee'
+import SectionRail from './components/SectionRail'
 import About from './sections/About'
 import Contact from './sections/Contact'
 import Focus from './sections/Focus'
@@ -97,11 +101,12 @@ function NotFound() {
 }
 
 function HomePage() {
-  return <><Hero /><About /><Focus /><Projects /><Research /><Writing /><Tooling /><Contact /></>
+  return <><Hero /><Marquee /><About /><Focus /><Projects /><Research /><Writing /><Tooling /><Contact /></>
 }
 
 function Shell() {
   const { t } = useTranslation()
+  const location = useLocation()
   const [paletteOpen, setPaletteOpen] = useState(false)
   const openPalette = useCallback(() => setPaletteOpen(true), [])
   const closePalette = useCallback(() => setPaletteOpen(false), [])
@@ -125,9 +130,13 @@ function Shell() {
     <a className="skip-link" href="#main">{t('a11y.skip')}</a>
     <GitHubPagesRedirect />
     <ScrollToTop />
+    <AmbientField />
     <CursorGlow />
+    <BootSequence />
     <Navigation onOpenPalette={openPalette} />
+    <SectionRail />
     <main id="main">
+      <div className="page-transition" key={location.pathname}>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<><Hero /><About /></>} />
@@ -141,7 +150,9 @@ function Shell() {
         <Route path="/blog/:slug" element={<><Hero /><BlogPost /></>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      </div>
     </main>
+    <Marquee reverse />
     <Footer />
     <CommandPalette open={paletteOpen} onClose={closePalette} />
   </>

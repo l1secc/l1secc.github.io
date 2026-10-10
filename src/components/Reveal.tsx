@@ -1,15 +1,18 @@
 import type { ElementType, ReactNode } from 'react'
 import { useInView, usePrefersReducedMotion } from '../hooks/useObserver'
 
+type Variant = 'up' | 'left' | 'right' | 'scale'
+
 type Props = {
   children: ReactNode
   as?: ElementType
   className?: string
   delay?: number
   id?: string
+  variant?: Variant
 }
 
-export default function Reveal({ children, as: Tag = 'div', className = '', delay = 0, id }: Props) {
+export default function Reveal({ children, as: Tag = 'div', className = '', delay = 0, id, variant = 'up' }: Props) {
   const { ref, inView } = useInView<HTMLDivElement>()
   const reduced = usePrefersReducedMotion()
 
@@ -21,7 +24,7 @@ export default function Reveal({ children, as: Tag = 'div', className = '', dela
   return <Tag
     ref={ref}
     id={id}
-    className={`reveal ${inView ? 'is-visible' : ''} ${className}`.trim()}
+    className={`reveal reveal--${variant} ${inView ? 'is-visible' : ''} ${className}`.trim()}
     style={delay ? { transitionDelay: `${delay}ms` } : undefined}
   >{children}</Tag>
 }

@@ -1,6 +1,7 @@
 import { ArrowUpRight, Blocks } from 'lucide-react'
 import SectionHeading from '../components/SectionHeading'
 import Reveal from '../components/Reveal'
+import TiltCard from '../components/TiltCard'
 import { projects } from '../data/site'
 import { useTranslation } from 'react-i18next'
 
@@ -8,7 +9,7 @@ export default function Projects() {
   const { t } = useTranslation()
   return <section className="projects section-shell section-pad" id="projects">
     <SectionHeading index="03" title={t('projects.title')} detail={t('projects.detail')} />
-    {projects.length ? <div className="project-grid">{projects.map(project => <article className="project-card" key={project.title}>
+    {projects.length ? <div className="project-grid">{projects.map(project => <TiltCard as="article" className="project-card" key={project.title}>
       {project.image && <img src={project.image} alt="" loading="lazy" decoding="async" />}
       <div className="project-info">
         <div><h3>{project.title}</h3><p>{project.description}</p></div>
@@ -18,7 +19,7 @@ export default function Projects() {
           {project.demo && <a href={project.demo} target="_blank" rel="noopener noreferrer">{t('projects.demo')} <ArrowUpRight size={14} /></a>}
         </div>
       </div>
-    </article>)}</div> : <Reveal className="empty-state">
+    </TiltCard>)}</div> : <Reveal className="empty-state">
       <Blocks size={21} strokeWidth={1.3} className="empty-pulse" />
       <div>
         <span className="empty-label">{t('projects.emptyLabel')}</span>

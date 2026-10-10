@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next'
 import TerminalCard from '../components/TerminalCard'
 import ParticleField from '../components/ParticleField'
 import Reveal from '../components/Reveal'
+import Magnetic from '../components/Magnetic'
+import ScrambleText from '../components/ScrambleText'
 import networkVisual from '../assets/network-visual.svg'
 import { usePrefersReducedMotion } from '../hooks/useObserver'
 
@@ -63,14 +65,14 @@ export default function Hero() {
       <Reveal className="hero-reveal" delay={620}>
         <p className="hero-description">{t('hero.description')}</p>
         <div className="hero-actions">
-          <Link className="button-primary" to="/projects">{t('hero.cta')} <ArrowDown size={15} strokeWidth={1.5} /></Link>
+          <Magnetic><Link className="button-primary" to="/projects">{t('hero.cta')} <ArrowDown size={15} strokeWidth={1.5} /></Link></Magnetic>
           <Link className="button-text" to="/blog">{t('hero.ctaSecondary')} <ArrowUpRight size={15} strokeWidth={1.5} /></Link>
         </div>
         <div className="hero-status"><span className="status-dot" /> {t('hero.status')}</div>
       </Reveal>
     </div>
     <Reveal as="div" className="hero-aside" delay={140}>
-      <div className="hero-index"><span>{t('hero.indexA')}</span><span>{t('hero.indexB')}</span></div>
+      <div className="hero-index"><span>{t('hero.indexA')}</span><ScrambleText text={t('hero.indexB')} /></div>
       <TerminalCard />
     </Reveal>
     <Link className="scroll-cue" to="/about" aria-label={t('a11y.scrollCue')}>

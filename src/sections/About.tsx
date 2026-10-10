@@ -8,7 +8,7 @@ export default function About() {
     <SectionHeading index="01" title={t('about.title')} />
     <div className="about-content">
       <Reveal as="p" className="about-lead">{t('about.description')}</Reveal>
-      <Reveal className="about-notes" delay={120}>
+      <Reveal className="about-notes" delay={120} variant="right">
         <p><Trans i18nKey="about.noteOne" components={{ em: <i /> }} /></p>
         <p>{t('about.noteTwo')}</p>
         <span className="annotation">{t('about.annotation')} <b>{t('about.location')}</b></span>
